@@ -1,8 +1,9 @@
-#Bitcoin Genie
-![Image alt text](https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Github/Bitcoin%20Genie_Github.png "Bitcoin Genie")
+<h1>Bitcoin Genie</h1>
+
+![Image alt text](https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Bitcoin%20Genie_Github.png "Bitcoin Genie")
 Welcome to Bitcoin Genie! You can find, how much you would have earned if you have invested in bitcoin on any specific period in the past.
 
-###Get Started
+<h3>Get Started</h3>
 
 Enable Bitcoin Genie action from google's actions store.
 
