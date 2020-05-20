@@ -138,7 +138,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                 title: `Price: ${priceStartOfMonth}/- rupees`,
                 description: `Beginning of this month`,
                 image: new Image({
-                  url: 'https://img.techpowerup.org/200518/carousel-img-1.jpg',
+                  url: 'https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Carousel/Carousel_Img-1.jpg',
                   alt: `If you have invested at beginning of this month you might have earned ${earnedStartOfMonth} rupees`,
                 }),
               },
@@ -150,7 +150,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                 title: `Price: ${priceStartOfYear}/- rupees`,
                 description: `Start of the year`,
                 image: new Image({
-                  url: 'https://img.techpowerup.org/200518/carousel-img-2.jpg',
+                  url: 'https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Carousel/Carousel_Img-2.jpg',
                   alt: `If you have invested at beginning of this year you might have earned ${earnedStartOfYear} rupees`,
                 }),
               },
@@ -162,7 +162,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                 title: `Price : ${priceAYearAgo} /- rupees`,
                 description: `One year ago`,
                 image: new Image({
-                  url: 'https://img.techpowerup.org/200518/carousel-img-3.jpg',
+                  url: 'https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Carousel/Carousel_Img-3.jpg',
                   alt: `If you have invested one year ago you might have earned ${earnedAYearAgo} rupees`,
                 }),
               },
@@ -174,7 +174,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                 title: `Price: ${priceTwoYearAgo}/- rupees`,
                 description: `Two year ago`,
                 image: new Image({
-                  url: 'https://img.techpowerup.org/200518/carousel-img-4.jpg',
+                  url: 'https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Carousel/Carousel_Img-4.jpg',
                   alt: `If you have invested two year ago you might have earned ${earnedTwoYearAgo} rupees`,
                 }),
               },
@@ -186,7 +186,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                 title: `Price: ${priceThreeYearAgo}/- rupees`,
                 description: `Three year ago`,
                 image: new Image({
-                  url: 'https://img.techpowerup.org/200518/carousel-img-5.jpg',
+                  url: 'https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Carousel/Carousel_Img-5.jpg',
                   alt: `If you have invested three year ago you might have earned ${earnedThreeYearAgo} rupees`,
                 }),
               },
@@ -285,7 +285,7 @@ Revenue: ${earned} rupees.  \n`,
             //     url: 'https://bitcoins.now/',
             // }),
             image: new Image({
-                url: 'https://img.techpowerup.org/200518/portrait892.png',
+                url: 'https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Carousel/portrait.png',
                 alt: 'Bitcoin',
               }),
             display: 'CROPPED',
