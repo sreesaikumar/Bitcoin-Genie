@@ -1,6 +1,5 @@
-<h1>Bitcoin Genie</h1>
-
 ![Image alt text](https://raw.githubusercontent.com/sreesaikumar/Bitcoin-Genie/master/images/Bitcoin%20Genie_Github.png "Bitcoin Genie")
+<h1>Bitcoin Genie</h1>
 Welcome to Bitcoin Genie! You can find, how much you would have earned if you have invested in bitcoin on any specific period in the past.
 
 <h3>Get Started</h3>
