@@ -45,6 +45,7 @@ build/Release
 
 # Dependency directories
 # node_modules/
+# config/serviceAccountKey.json
 
 # Optional npm cache directory
 .npm
