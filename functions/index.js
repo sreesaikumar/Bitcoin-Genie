@@ -87,7 +87,7 @@ app.intent("Bitcoin", conv => {
       }));
 });
 
-//Understanding What Bitcoin Is
+//Understand What Bitcoin Is
 app.intent("Bitcoin Technology", conv => {
     // For devices without screens i.e Google Home, Google Home Mini.
         if (!conv.screen) {
@@ -135,12 +135,10 @@ app.intent("Bitcoin Price", async (conv) => {
     bitcoinInvestment = 100000; // If user does not specify any investment amount i.e [how much they would have invested in the past] then this is the default amount.
 
     if ( ! conv.parameters.currencyName ) {
-        currency = 'INR';
-        console.log('******Default Currency******'+ currency);
+        currency = 'INR'; // Default Currency
       }
       else {
-          currency = conv.parameters.currencyName;
-          console.log('******User Provided Currency******'+ currency);  
+        currency = conv.parameters.currencyName; // User Provided Currency
       }
 
     let now = new Date();
@@ -198,12 +196,10 @@ app.intent("Bitcoin Pricing History", async (conv) => {
     bitcoinInvestment = 100000; // If user does not specify any investment amount i.e [how much they would have invested in the past] then this is the default amount.
     
     if ( ! conv.parameters.pricingCurrencyName ) {
-        currency = 'INR';
-        console.log('******Default Currency******'+ currency);
+        currency = 'INR'; // Default Currency
       }
       else {
-          currency = conv.parameters.pricingCurrencyName;
-          console.log('******User Provided Currency******'+ currency);  
+          currency = conv.parameters.pricingCurrencyName; // User Provided Currency
       }
 
     let now = new Date();
@@ -338,41 +334,31 @@ app.intent("Bitcoins Investment", async (conv) => {
     let buyDateParameter = conv.parameters.buyDate;
 
     if ( ! conv.parameters.investmoney ) {
-    //   bitcoinInvestment = 100000; // If user does not specify any investment amount i.e [how much they would have invested in the past] then this is the default amount.
-      currency = 'INR';
-      console.log('******Default Bitcoin Investment******'+ bitcoinInvestment);
-      console.log('******Default Currency******'+ currency);
+        currency = 'INR'; // Default Currency
     }
     else {
-        bitcoinInvestment = conv.parameters.investmoney.amount; 
-        currency = conv.parameters.investmoney.currency;
-
-        console.log('******User Provided Bitcoin Investment******'+ bitcoinInvestment);  
-        console.log('******User Provided Currency******'+ currency);  
+        bitcoinInvestment = conv.parameters.investmoney.amount; // User Provided Bitcoin Investment
+        currency = conv.parameters.investmoney.currency; //User Provided Currency
     }
     
       // If any period[day, month, year] is not provided by the user in the 'buyDate' paramenter then we throw an error message!
       if (! buyDateParameter) {
           conv.ask('Please try again by providing the time of the bitcoin investment. Was it a year ago or two years ago or at the beginning of the year 2015?');
-        console.log('******Handling buyDateParameter Error******' + buyDateParameter);
       }
 
       // Storing user provided parameters i.e day, month or year in a variable, otherwise set to false.
-      let dateUnit = (conv.parameters.buyDate.hasOwnProperty('date-unit')) ? conv.parameters['buyDate']['date-unit'] : false;
-      console.log('******dateUnit******' + dateUnit);                   
+      let dateUnit = (conv.parameters.buyDate.hasOwnProperty('date-unit')) ? conv.parameters['buyDate']['date-unit'] : false;                  
 
       // Storing user provided parameters i.e beginning or end in a variable, otherwise set to false.
       let datePeriod = (conv.parameters.buyDate.hasOwnProperty('date-period')) ? conv.parameters['buyDate']['date-period'] : false;
-      console.log('******datePeriod******' + datePeriod);
       
       // Storing user provided parameters i.e numbers[year in numbers-2014, 2015, 2016] in a variable, otherwise set to zero-'0'.   
       let number = (conv.parameters.buyDate.hasOwnProperty('number')) ? conv.parameters['buyDate']['number'] : 0;
-      console.log('******number******' + number);
       
       let now = new Date();
       let dateToCalculate = new Date();
-      let currentMonth = dateToCalculate.setMonth(now.getMonth());
-      let currentYear = dateToCalculate.setFullYear(now.getFullYear());
+      let currentMonth = dateToCalculate.getMonth(); // Month starts from Zero 0->Jab, 1-> Feb, 2->Mar, etc.
+      let currentYear = dateToCalculate.getFullYear();
 
       // If user say  a year ago / a month ago / a day ago here 'a' represents one i.e 
       // one year/month/day ago. So set number to '1'.
@@ -385,34 +371,38 @@ app.intent("Bitcoins Investment", async (conv) => {
       else if (datePeriod === 'beginning' && dateUnit === 'month' || datePeriod === 'end' && dateUnit === 'month') {
         dateUnit = 'month';
         number = currentMonth;
-        console.log('*****begin month******')
       }
       else if (datePeriod === 'beginning' && dateUnit === 'year' || datePeriod === 'end' && dateUnit === 'year') {
         dateUnit = 'year';
-        number = currentYear; 
-        console.log('******Beginning & end year******' + dateUnit + 'number:' + number);
+        number = currentYear;
       }
 
       // What Parameter does user provided day / months / years
       switch (dateUnit) {
           case 'day':
-              dateToCalculate.setDate(now.getDate() - number);
-              break;
+              
+            dateToCalculate.setDate(now.getDate() - number);
+            break;
+          
           case 'month':
-              dateToCalculate.setMonth(now.getMonth() - number);
-              if (datePeriod === 'end') {
-                  dateToCalculate.setDate(new Date(now.getFullYear(), dateToCalculate.getMonth() + 1, 0).getDate());
-              } else if (datePeriod === 'beginning') {
+            
+            dateToCalculate.setMonth(now.getMonth() - number);
+              if ( datePeriod === 'end' && number >= currentMonth ) {
+              
+              conv.ask('Sorry, I can\'t Provide you the future predictions. You can say, how much I would have earned if I bought bitcoins a month ago?');
+              return;
+              }
+              else if (datePeriod === 'end') {
+                dateToCalculate.setDate(new Date(now.getFullYear(), dateToCalculate.getMonth() + 1, 0).getDate());
+              }
+              else if ((datePeriod === 'beginning' && number === currentMonth) || (datePeriod === 'beginning' && number === currentMonth)) {
+                dateToCalculate.setMonth(now.getMonth(), 1);  
+              }
+              else if (datePeriod === 'beginning') {
                   dateToCalculate.setDate(1);
               }
-
-              if ( datePeriod === 'end' && number >= currentMonth) {
-                conv.ask('Sorry, I can\'t Provide you the futher predictions. You can say, how much I would have earned if I bought bitcoins a month ago?');
-                console.log('******Handling Error with future dates******');
-                return;
-              }
-
-              break;
+            break;
+          
           case 'year':
               if (datePeriod === 'end') {
                   dateToCalculate.setDate(31);
@@ -423,18 +413,19 @@ app.intent("Bitcoins Investment", async (conv) => {
               }
 
               if ( datePeriod === 'end' && number >= currentYear) {
-                conv.ask('Sorry, I can\'t Provide you the futher predictions. You can say, any past year like a year ago or at the end of the 2019 or at the beginning of the year 2015?');
-                console.log('******Handling Error with future dates******');
+                conv.ask('Sorry, I can\'t Provide you the future predictions. You can say, any past year like a year ago or at the end of the 2019 or at the beginning of the year 2015?');
                 return;
+              }
+              else if( datePeriod === 'beginning' && number > 2011 || datePeriod === 'beginning' && number <= currentYear){
+                dateToCalculate.setFullYear(number);
               }
               else if ( number > 2011 && number <= currentYear) 
                   dateToCalculate.setFullYear(number);
               else if ( number > 0 && number < 9 ) {
                   dateToCalculate.setFullYear(now.getFullYear() - number);
               }
-              else if ( number < 2011 && number > 9) {
+              else if ( number < 2011 || number > 9) {
                 conv.ask('Investing in bitcoin was not started in that year. Please try again by saying, how much I would have earned if I bought bitcoins a year ago?');
-                console.log('Handling Errors For Future Year:' + number);
                 return;
               }
               break;
@@ -446,7 +437,6 @@ app.intent("Bitcoins Investment", async (conv) => {
 
       let investment = await calculateInvestment(investDate, sellDate);
       let investmentAmount = formatMoney(investment.investPrice.toFixed(2));
-      console.log('******Investment Amount After Formatting******', investmentAmount);
 
       let earned = formatMoney(investment.earned.toFixed(2));
       
@@ -500,7 +490,6 @@ Revenue: ${earned}.  \n`,
 function formatMoney(num) {
   const money = num;
   var result;
-  console.log('******Currency While entering the loop:'+ currency);
   
   if (currency === 'AED' || currency === 'United Arab Emirates') //United Arab Emirates: AE	Dirham: AED
       result = new Intl.NumberFormat('en-AE', { style: 'currency', currency: 'AED' }).format(money);
@@ -1003,15 +992,10 @@ function formatMoney(num) {
   else if (currency === 'INR') //India	IN	Indian Rupee	INR
       result = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(money);
   
-  console.log('******Currency result While leaving the loop:'+ result);
-  
   if(result === undefined) {
-        console.log('******Currency result is undefined:'+ result);
     currency = 'INR';
-        console.log('******Currency result is assigned to default:'+ currency);
     formatMoney();
-        console.log('******Calling format money again:'+ currency);
-    }
+  }
 
   return result;  
 }
@@ -1031,9 +1015,7 @@ async function calculateInvestment(investDate, sellDate) {
     let investPrice = await getBitcoinPrice(investDate);
     let sellPrice = await getBitcoinPrice(sellDate);
     if( bitcoinInvestment === undefined ) {
-        console.log('******calculateInvestment Loop Entered bitcoinInvestment is undefined:'+ bitcoinInvestment);
     bitcoinInvestment = 200000;
-        console.log('******calculateInvestment Loop Entered bitcoinInvestment is assigned to default:'+ bitcoinInvestment);
     }
 
     let startBitcoin = bitcoinInvestment / investPrice;
@@ -1050,7 +1032,6 @@ async function calculateInvestment(investDate, sellDate) {
 function getBitcoinPrice(dateToRead) {
 
   if ( bitcoinPrices.hasOwnProperty(dateToRead) )  {
-    console.log('getBitcoinPrice function, Data already exists' + bitcoinPrices[dateToRead]);
       return bitcoinPrices[dateToRead];
   } 
   else {
